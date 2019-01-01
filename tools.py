@@ -3,10 +3,10 @@
 import sys
 
 try:
-    import os, re, threading, math, requests, click, time
+    import os, re, threading, math, requests, click, time, urllib.request
     from tqdm import tqdm
     vitalsPresent = True
-except ImportError:
+except:
     vitalsPresent = False
 
 try:
@@ -42,3 +42,16 @@ def printText(text, asciiArt=False, font="banner3"):
         print(output.renderText(text))
     else:
         print(text)
+
+def downloadDirectory():
+    desktopPath = os.path.join(os.path.expanduser("~"), "Desktop")
+    downloadFolder = os.path.join(desktopPath, "Downloads by Tachyon")
+
+    if not os.path.exists(downloadFolder):
+        try:
+            os.makedirs(downloadFolder)
+            return downloadFolder
+        except:
+            return None
+    else:
+        return downloadFolder
