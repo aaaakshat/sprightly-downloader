@@ -42,7 +42,7 @@ class tachydownload():
             chunkDivider = self.fileSize % newThreadNum
             if chunkDivider == 0 and newThreadNum > self.threadNum:
         '''
-        self.threadNum = 200
+        self.threadNum = 400
         self.chunkSize = math.ceil(self.fileSize/self.threadNum)
 
 
