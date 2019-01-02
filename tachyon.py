@@ -46,7 +46,7 @@ class tachydownload():
         self.chunkSize = math.ceil(self.fileSize/self.threadNum)
         self.threadNum += 1
 
-        print("Filesize: %s Chunksize: %s     Threadnum: %s" % (self.fileSize, self.chunkSize, self.threadNum))
+        print("Filesize: %s     Chunksize: %s     Threadnum: %s" % (self.fileSize, self.chunkSize, self.threadNum))
 
     def variableSetup(self):
         if tools.downloadDirectory() is not None:
