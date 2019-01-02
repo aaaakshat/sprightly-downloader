@@ -5,15 +5,8 @@ import sys
 try:
     import os, re, threading, math, requests, click, time
     from tqdm import tqdm
-    vitalsPresent = True
 except:
-    vitalsPresent = False
-
-try:
-    from pyfiglet import Figlet
-    figletImported = True
-except ImportError:
-    figletImported = False
+    print("One of the modules has not been imported\nEnsure the following modules are installed:\nos, re, threading, math, requests, click, time")
 
 class textEffects:
    PURPLE = '\033[95m'
@@ -29,12 +22,6 @@ class textEffects:
 
    def formatText(self, operation, text):
        return getattr(self, operation) + text + self.END
-
-def sysValidation():
-    if vitalsPresent:
-        return True
-    else:
-        return False
 
 def printText(text, asciiArt=False, font="banner3"):
     if "pyfiglet" in sys.modules and asciiArt:

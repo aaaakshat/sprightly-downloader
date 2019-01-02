@@ -1,8 +1,7 @@
 # Tachyon
-
-A multithread downloader made as a companion for bingewatching tv shows.
+A multithread downloader created after facing the hardships of downloading with bandwidth throttling.
 
 ## License
-This software is licensed under the MIT License. It allows you to do nearly anything you want with it, however do check the LICENSE text file for more details.
+This software is licensed under the MIT License. It allows you to do nearly anything you want with it, however please do check the LICENSE text file for more details.
 
 ###### WRITTEN IN PYTHON

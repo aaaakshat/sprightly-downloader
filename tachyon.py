@@ -2,9 +2,11 @@
 
 import tools as tools
 
-if tools.sysValidation():
+try:
     import os, re, threading, math, requests, click, time
     from tqdm import tqdm
+except:
+    print("One of the modules has not been imported\nEnsure the following modules are installed:\nos, re, threading, math, requests, click, time")
 
 
 class tachydownload():
@@ -28,7 +30,7 @@ class tachydownload():
         self.variableSetup()
         tools.printText(text.formatText("BOLD", "Downloading file: \"" + self.fileName + "\""))
 
-    def __consoleMsg(self, type, oldTime=time.time()):
+    def consoleMsg(self, type, oldTime=time.time()):
         if type=="header":
             tools.printText("Tachyon", asciiArt=True)
             tools.printText(text.formatText("BOLD", "\nThe faster than light media downloader"))
@@ -70,32 +72,29 @@ class tachydownload():
             hiddenFile.write(file)
 
     def main(self):
-        if tools.sysValidation():
-            oldTime = time.time()
-            threads = []
+        oldTime = time.time()
+        threads = []
 
-            with tqdm(total=self.threadNum*2, ascii=True, ncols=100) as progBar:
-                for threadID in range(0, self.threadNum):
-                    thread = threading.Thread(target = self.newThread, args=(threadID*self.chunkSize,))
-                    thread.start()
-                    threads.append(thread)
-                    progBar.update(1)
+        with tqdm(total=self.threadNum*2, ascii=True, ncols=100) as progBar:
+            for threadID in range(0, self.threadNum):
+                thread = threading.Thread(target = self.newThread, args=(threadID*self.chunkSize,))
+                thread.start()
+                threads.append(thread)
+                progBar.update(1)
 
-                for thread in threads:
-                    thread.join()
-                    progBar.update(1)
+            for thread in threads:
+                thread.join()
+                progBar.update(1)
 
 
-            self.filePath = open(self.filePath, "wb")
-            for sections in range(0, self.threadNum):
-                readFile = open(os.path.join(tools.downloadDirectory(), "." + str(sections*self.chunkSize)), "rb")
-                self.filePath.write(readFile.read())
-                os.remove(os.path.join(tools.downloadDirectory(), "." + str(sections*self.chunkSize)))
+        self.filePath = open(self.filePath, "wb")
+        for sections in range(0, self.threadNum):
+            readFile = open(os.path.join(tools.downloadDirectory(), "." + str(sections*self.chunkSize)), "rb")
+            self.filePath.write(readFile.read())
+            os.remove(os.path.join(tools.downloadDirectory(), "." + str(sections*self.chunkSize)))
 
-            self.filePath.close()
-            self.__consoleMsg("completion", oldTime)
-        else:
-            self.__consoleMsg("sysfail")
+        self.filePath.close()
+        self.consoleMsg("completion", oldTime)
 
 
 settings = dict(help_option_names=['--help', '-h'])
