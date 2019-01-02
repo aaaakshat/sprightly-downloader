@@ -8,7 +8,7 @@ $ brew install python3
 ```
 Then you can use pip to install the python file:
 ```shell
-# Note: I had to use tachydownload as the name tachyon is not available.
+# Note: I used the name 'tachydownload' since the name 'tachyon' is taken.
 $ pip install tachydownload
 ```
 
