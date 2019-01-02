@@ -3,7 +3,7 @@
 import sys
 
 try:
-    import os, re, threading, math, requests, click, time, urllib.request
+    import os, re, threading, math, requests, click, time
     from tqdm import tqdm
     vitalsPresent = True
 except:

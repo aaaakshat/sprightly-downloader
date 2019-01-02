@@ -3,7 +3,7 @@
 import tools as tools
 
 if tools.sysValidation():
-    import os, re, threading, math, requests, click, time, urllib.request
+    import os, re, threading, math, requests, click, time
     from tqdm import tqdm
 
 
@@ -26,7 +26,7 @@ class tachydownload():
         self.threadNum = 0
         self.threadDivisor()
         self.variableSetup()
-        tools.printText(text.formatText("BOLD", "Downloading file: " + self.fileName))
+        tools.printText(text.formatText("BOLD", "Downloading file: \"" + self.fileName + "\""))
 
     def __consoleMsg(self, type, oldTime=time.time()):
         if type=="header":
@@ -42,9 +42,9 @@ class tachydownload():
             chunkDivider = self.fileSize % newThreadNum
             if chunkDivider == 0 and newThreadNum > self.threadNum:
         '''
-        self.threadNum = 400
+        self.threadNum = 10
         self.chunkSize = math.ceil(self.fileSize/self.threadNum)
-
+        self.threadNum += 1
 
         print("Filesize: %s Chunksize: %s     Threadnum: %s" % (self.fileSize, self.chunkSize, self.threadNum))
 
@@ -61,13 +61,13 @@ class tachydownload():
                     outputFile.write("01")
                     progBar.update(1)
         '''
-        range = {"Range": "bytes=%s-%s" % (origin, origin+self.chunkSize)}
+        range = {"Range": "bytes=%s-%s" % (origin, origin+self.chunkSize-1)}
         fileReq = requests.get(self.downloadUrl, headers=range, stream=True)
 
+        file = fileReq.content
         # Each thread creates a hidden dotfile within the tachyon folder
         with open(os.path.join(tools.downloadDirectory(), "." + str(origin)), "wb") as  hiddenFile:
-            for chunk in fileReq.iter_content(100000):
-                hiddenFile.write(chunk)
+            hiddenFile.write(file)
 
     def main(self):
         if tools.sysValidation():
