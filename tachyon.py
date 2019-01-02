@@ -42,7 +42,7 @@ class tachydownload():
             chunkDivider = self.fileSize % newThreadNum
             if chunkDivider == 0 and newThreadNum > self.threadNum:
         '''
-        self.threadNum = 10
+        self.threadNum = 98
         self.chunkSize = math.ceil(self.fileSize/self.threadNum)
         self.threadNum += 1
 
@@ -90,6 +90,7 @@ class tachydownload():
             for sections in range(0, self.threadNum):
                 readFile = open(os.path.join(tools.downloadDirectory(), "." + str(sections*self.chunkSize)), "rb")
                 self.filePath.write(readFile.read())
+                os.remove(os.path.join(tools.downloadDirectory(), "." + str(sections*self.chunkSize)))
 
             self.filePath.close()
             self.__consoleMsg("completion", oldTime)
